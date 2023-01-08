@@ -69,7 +69,7 @@ dependencies {
     }
     
     //Projectile Damage Attribute by daedelus_dev (https://www.curseforge.com/minecraft/mc-mods/projectile-damage-attribute)
-    modImplementation "maven.modrinth:projectile-damage-attribute:${projectile_damage_version}-fabric"
+    modImplementation "maven.modrinth:projectile-damage-attribute:${project.projectile_damage_version}-fabric"
 
 }
 

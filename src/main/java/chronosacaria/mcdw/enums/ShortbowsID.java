@@ -82,6 +82,11 @@ public enum ShortbowsID implements IMcdwWeaponID, IRangedWeaponID {
     }
 
     @Override
+    public double getProjectileDamage() {
+        return projectileDamage;
+    }
+
+    @Override
     public int getDrawSpeed() {
         return drawSpeed;
     }

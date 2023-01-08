@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import static chronosacaria.mcdw.Mcdw.CONFIG;
 
-public enum CrossbowsID implements IMcdwWeaponID, IRangedWeaponID {
+public enum CrossbowsID implements IRangedWeaponID {
     CROSSBOW_AUTO_CROSSBOW(ToolMaterials.IRON, 28, 8.0f, "minecraft:iron_ingot"),
     CROSSBOW_AZURE_SEEKER(ToolMaterials.IRON, 28, 8.4f, "minecraft:iron_ingot"),
     CROSSBOW_BABY_CROSSBOW(ToolMaterials.IRON, 23, 7.2f, "minecraft:iron_ingot"),
@@ -104,6 +104,11 @@ public enum CrossbowsID implements IMcdwWeaponID, IRangedWeaponID {
     @Override
     public ToolMaterial getMaterial() {
         return material;
+    }
+
+    @Override
+    public double getProjectileDamage() {
+        return projectileDamage;
     }
 
     @Override

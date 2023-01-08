@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import static chronosacaria.mcdw.Mcdw.CONFIG;
 
-public enum LongbowsID implements IMcdwWeaponID, IRangedWeaponID {
+public enum LongbowsID implements IRangedWeaponID {
     BOW_GUARDIAN_BOW(ToolMaterials.DIAMOND, 30, 19f, "minecraft:diamond"),
     BOW_LONGBOW(ToolMaterials.IRON, 25, 17f, "minecraft:planks"),
     BOW_RED_SNAKE(ToolMaterials.DIAMOND, 30, 18f, "minecraft:diamond");
@@ -78,6 +78,11 @@ public enum LongbowsID implements IMcdwWeaponID, IRangedWeaponID {
     @Override
     public ToolMaterial getMaterial() {
         return material;
+    }
+
+    @Override
+    public double getProjectileDamage() {
+        return projectileDamage;
     }
 
     @Override
