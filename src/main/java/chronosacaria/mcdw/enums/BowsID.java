@@ -6,13 +6,14 @@ import chronosacaria.mcdw.configs.McdwNewStatsConfig;
 import chronosacaria.mcdw.items.ItemsInit;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
+import net.projectile_damage.api.IProjectileWeapon;
 
 import java.util.EnumMap;
 import java.util.HashMap;
 
 import static chronosacaria.mcdw.Mcdw.CONFIG;
 
-public enum BowsID implements IMcdwWeaponID, IRangedWeaponID {
+public enum BowsID implements IRangedWeaponID {
     BOW_ANCIENT_BOW(ToolMaterials.NETHERITE,14, 18f, "minecraft:netherite_scrap"),
     BOW_BONEBOW(ToolMaterials.STONE,16, 12f, "minecraft:bone"),
     BOW_BUBBLE_BOW(ToolMaterials.IRON,15, 12f, "minecraft:iron_ingot"),
@@ -45,12 +46,18 @@ public enum BowsID implements IMcdwWeaponID, IRangedWeaponID {
     BOW_WINTERS_TOUCH(ToolMaterials.DIAMOND,15, 13f, "minecraft:diamond");
 
     public final ToolMaterial material;
+    public final double projectileDamage;
     public final int drawSpeed;
     public final float range;
     private final String[] repairIngredient;
 
     BowsID(ToolMaterial material, int drawSpeed, float range, String... repairIngredient) {
+        this(material, 6.0, drawSpeed, range, repairIngredient);
+    }
+
+    BowsID(ToolMaterial material, double projectileDamage, int drawSpeed, float range, String... repairIngredient) {
         this.material = material;
+        this.projectileDamage = projectileDamage;
         this.drawSpeed = drawSpeed;
         this.range = range;
         this.repairIngredient = repairIngredient;
@@ -108,6 +115,11 @@ public enum BowsID implements IMcdwWeaponID, IRangedWeaponID {
     }
 
     @Override
+    public double getProjectileDamage() {
+        return projectileDamage;
+    }
+
+    @Override
     public int getDrawSpeed() {
         return drawSpeed;
     }
@@ -127,6 +139,7 @@ public enum BowsID implements IMcdwWeaponID, IRangedWeaponID {
         McdwBow mcdwBow = new McdwBow(ItemsInit.stringToMaterial(this.getWeaponItemStats().material),
                 this.getWeaponItemStats().drawSpeed, this.getWeaponItemStats().range, this.getWeaponItemStats().repairIngredient);
 
+        ((IProjectileWeapon)mcdwBow).setProjectileDamage(this.getWeaponItemStats().projectileDamage);
         getItemsEnum().put(this, mcdwBow);
         return mcdwBow;
     }
