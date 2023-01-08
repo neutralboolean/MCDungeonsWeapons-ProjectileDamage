@@ -6,6 +6,7 @@ import chronosacaria.mcdw.configs.McdwNewStatsConfig;
 import chronosacaria.mcdw.items.ItemsInit;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
+import net.projectile_damage.api.IProjectileWeapon;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -44,12 +45,19 @@ public enum CrossbowsID implements IRangedWeaponID {
     CROSSBOW_VOIDCALLER_CROSSBOW(ToolMaterials.DIAMOND, 26, 12.5f, "minecraft:diamond");
 
     public final ToolMaterial material;
+    public final double projectileDamage;
     public final int drawSpeed;
     public final float range;
     private final String[] repairIngredient;
 
     CrossbowsID(ToolMaterial material, int drawSpeed, float range, String... repairIngredient) {
+        this(material, 9, drawSpeed, range, repairIngredient);
+    }
+
+    
+    CrossbowsID(ToolMaterial material, double projectileDamage, int drawSpeed, float range, String... repairIngredient) {
         this.material = material;
+        this.projectileDamage = projectileDamage;
         this.drawSpeed = drawSpeed;
         this.range = range;
         this.repairIngredient = repairIngredient;
@@ -131,6 +139,7 @@ public enum CrossbowsID implements IRangedWeaponID {
         McdwCrossbow mcdwCrossbow = new McdwCrossbow(ItemsInit.stringToMaterial(this.getWeaponItemStats().material),
                 this.getWeaponItemStats().drawSpeed, this.getWeaponItemStats().range, this.getWeaponItemStats().repairIngredient);
 
+        ((IProjectileWeapon)mcdwCrossbow).setProjectileDamage(this.getWeaponItemStats().projectileDamage);
         getItemsEnum().put(this, mcdwCrossbow);
         return mcdwCrossbow;
     }

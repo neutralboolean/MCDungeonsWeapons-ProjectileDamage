@@ -6,25 +6,32 @@ import chronosacaria.mcdw.configs.McdwNewStatsConfig;
 import chronosacaria.mcdw.items.ItemsInit;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
+import net.projectile_damage.api.IProjectileWeapon;
 
 import java.util.EnumMap;
 import java.util.HashMap;
 
 import static chronosacaria.mcdw.Mcdw.CONFIG;
 
-public enum ShortbowsID implements IMcdwWeaponID, IRangedWeaponID {
+public enum ShortbowsID implements IRangedWeaponID {
     BOW_LOVE_SPELL_BOW(ToolMaterials.IRON, 9, 8f, "minecraft:iron_ingot"),
     BOW_MECHANICAL_SHORTBOW(ToolMaterials.IRON, 9, 9f, "minecraft:iron_ingot"),
     BOW_PURPLE_STORM(ToolMaterials.IRON, 9, 8f, "minecraft:iron_ingot"),
     BOW_SHORTBOW(ToolMaterials.IRON, 9, 8f, "minecraft:planks");
 
     public final ToolMaterial material;
+    public final double projectileDamage;
     public final int drawSpeed;
     public final float range;
     private final String[] repairIngredient;
 
     ShortbowsID(ToolMaterial material, int drawSpeed, float range, String... repairIngredient) {
+        this(material, 6, drawSpeed, range, repairIngredient);
+    }
+
+    ShortbowsID(ToolMaterial material, double projectileDamage, int drawSpeed, float range, String... repairIngredient) {
         this.material = material;
+        this.projectileDamage = projectileDamage;
         this.drawSpeed = drawSpeed;
         this.range = range;
         this.repairIngredient = repairIngredient;
@@ -106,6 +113,7 @@ public enum ShortbowsID implements IMcdwWeaponID, IRangedWeaponID {
         McdwShortbow mcdwShortbow = new McdwShortbow(ItemsInit.stringToMaterial(this.getWeaponItemStats().material),
                 this.getWeaponItemStats().drawSpeed, this.getWeaponItemStats().range, this.getWeaponItemStats().repairIngredient);
 
+        ((IProjectileWeapon)mcdwShortbow).setProjectileDamage(this.getWeaponItemStats().projectileDamage);
         getItemsEnum().put(this, mcdwShortbow);
         return mcdwShortbow;
     }

@@ -6,6 +6,7 @@ import chronosacaria.mcdw.configs.McdwNewStatsConfig;
 import chronosacaria.mcdw.items.ItemsInit;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
+import net.projectile_damage.api.IProjectileWeapon;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -51,12 +52,7 @@ public enum BowsID implements IRangedWeaponID {
     private final String[] repairIngredient;
 
     BowsID(ToolMaterial material, int drawSpeed, float range, String... repairIngredient) {
-        this.material = material;
-        this.projectileDamage = projectileDamage;
-        this.drawSpeed = drawSpeed;
-        this.range = range;
-        this.repairIngredient = repairIngredient;
-        return BowsID(material, 9);
+        this(material, 6.0, drawSpeed, range, repairIngredient);
     }
 
     BowsID(ToolMaterial material, double projectileDamage, int drawSpeed, float range, String... repairIngredient) {
@@ -143,6 +139,7 @@ public enum BowsID implements IRangedWeaponID {
         McdwBow mcdwBow = new McdwBow(ItemsInit.stringToMaterial(this.getWeaponItemStats().material),
                 this.getWeaponItemStats().drawSpeed, this.getWeaponItemStats().range, this.getWeaponItemStats().repairIngredient);
 
+        ((IProjectileWeapon)mcdwBow).setProjectileDamage(this.getWeaponItemStats().projectileDamage);
         getItemsEnum().put(this, mcdwBow);
         return mcdwBow;
     }
